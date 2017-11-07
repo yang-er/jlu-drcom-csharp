@@ -1,7 +1,7 @@
 # jlu-drcom-csharp
 吉林大学DRCOM客户端上网版<br>
 by 小羊<br>
-thx to 另外两只羊的大力支持：Lance.Moe && 午夜克星<br>
+thx to 另外两只羊的大力支持：Lance.Moe && 月夜克星<br>
 thx to https://github.com/hyec/drcomlite<br>
 thx to https://github.com/drcoms/jlu-drcom-client<br>
 bin/Release/DrClient.exe就是可用的<br>
