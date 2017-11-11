@@ -84,7 +84,7 @@ namespace DrClient
             {
                 data = new byte[40];
                 data[0] = 0x07;
-                data[1] = (byte)(alivesum %= 32);
+                data[1] = 0x00;
                 data[2] = 0x28;
                 data[4] = 0x0b;
                 data[5] = (byte)(2 * type - 1);

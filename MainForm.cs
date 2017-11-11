@@ -84,7 +84,7 @@ namespace DrClient
                         if (trytimes >= 0 && ret++ > trytimes)
                         {
                             Log("alive", "alive(): fail;", false);
-                            break;
+                            throw new DrException();
                         }
                         Thread.Sleep(1000);
                     }
