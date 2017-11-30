@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DrClient
@@ -61,7 +55,10 @@ namespace DrClient
                 while (true)
                 {
                     if (trytimes >= 0 && ret++ > trytimes)
+                    {
                         Log("login", "! try over times, login fail!", false);
+                        throw new DrException();
+                    }
 
                     int p = proc.Challenge(ret);
                     if (p == -5) throw new DrException();
@@ -177,7 +174,7 @@ namespace DrClient
         {
             if (checkBox1.Checked)
             {
-                Height = 716;
+                Height = 700;
             }
             else
             {

@@ -140,12 +140,13 @@
             // 
             // listBox1
             // 
+            this.listBox1.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 36;
+            this.listBox1.ItemHeight = 33;
             this.listBox1.Location = new System.Drawing.Point(29, 362);
             this.listBox1.Margin = new System.Windows.Forms.Padding(4);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(584, 256);
+            this.listBox1.Size = new System.Drawing.Size(584, 235);
             this.listBox1.TabIndex = 105;
             // 
             // textBox2

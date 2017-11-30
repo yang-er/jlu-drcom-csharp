@@ -38,11 +38,19 @@ namespace DrClient
         /// </summary>
         public bool Initialize()
         {
-            ep = new IPEndPoint(0x033d640a, 61440);
-            socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            socket.Connect(ep);
-            OnMakeLog.Invoke("socket", "Initialized with " + socket.Connected.ToString(), false);
-            return socket.Connected;
+            try
+            {
+                ep = new IPEndPoint(0x033d640a, 61440);
+                socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                socket.Connect(ep);
+                OnMakeLog.Invoke("socket", "Initialized with " + socket.Connected.ToString(), false);
+                return socket.Connected;
+            }
+            catch (SocketException e)
+            {
+                OnMakeLog.Invoke("socket", "invalid socket, exitting...", false);
+                return false;
+            }
         }
 
         /// <summary>
@@ -63,7 +71,11 @@ namespace DrClient
             data[i++] = (byte)((random % 0xFFFF) >> 8);
             /* end with 0x09 */
             data[i++] = 0x09;
+#if DEBUG
             OnMakeLog.Invoke("challenge", data, true);
+#else
+            OnMakeLog.Invoke("challenge", "Making challenge packet...", false);
+#endif
         }
 
         /// <summary>
@@ -97,7 +109,11 @@ namespace DrClient
                 if (type == 2)
                     Buffer.BlockCopy(Cert.host_ip, 0, data, 28, 4);
             }
+#if DEBUG
             OnMakeLog.Invoke("alive", data, true);
+#else
+            OnMakeLog.Invoke("alive", "Sending keep-alive-" + type.ToString() + " packet...", false);
+#endif
         }
 
         /// <summary>
@@ -254,7 +270,11 @@ namespace DrClient
             buffer[2] = (byte)rand.Next(0, 255);
             buffer[3] = (byte)rand.Next(0, 255);
             buffer[4] = 0x68;
+#if DEBUG
             OnMakeLog.Invoke("challenge", buffer, true);
+#else
+            OnMakeLog.Invoke("challenge", "Sending challenge packet...", false);
+#endif
             SendPacket(buffer, 20);
             int recv_len = ReceivePacket();
             if (recv_len == -5) return -5;

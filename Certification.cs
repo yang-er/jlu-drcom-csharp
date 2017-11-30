@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
@@ -353,7 +352,12 @@ namespace DrClient
             i += 28;
             len = i;
             
+
+#if DEBUG
             OnMakeLog.Invoke("mkpkt", data, true);
+#else
+            OnMakeLog.Invoke("login", "Making login packet...", false);
+#endif
             return data;
         }
 
