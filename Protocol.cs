@@ -28,8 +28,9 @@ namespace DrClient
         IPEndPoint ep;
         int randtimes;
         Random rand = new Random();
-        int alivesum = 0;
+        // int alivesum = 0;
         Socket socket;
+        public string InnerSource { get; set; }
 
         void NullVoid(string a, object b, bool c) { }
 
@@ -40,15 +41,17 @@ namespace DrClient
         {
             try
             {
+                InnerSource = "";
                 ep = new IPEndPoint(0x033d640a, 61440);
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 socket.Connect(ep);
                 OnMakeLog.Invoke("socket", "Initialized with " + socket.Connected.ToString(), false);
                 return socket.Connected;
             }
-            catch (SocketException e)
+            catch (SocketException)
             {
                 OnMakeLog.Invoke("socket", "invalid socket, exitting...", false);
+                InnerSource = "Socket初始化失败。";
                 return false;
             }
         }
@@ -125,8 +128,9 @@ namespace DrClient
             {
                 return socket.Send(buffer, length, SocketFlags.None);
             }
-            catch (ObjectDisposedException e)
+            catch (ObjectDisposedException)
             {
+                InnerSource = "Socket被异常关闭。";
                 return -5;
             }
         }
@@ -168,7 +172,8 @@ namespace DrClient
                         if (buffer[1] == 0x15)
                         {
                             OnMakeLog.Invoke("login", "! Others logined.", false);
-                            return -1;
+                            InnerSource = "账户在其他地方登录。";
+                            return -5;
                         }
 
                         continue;
@@ -178,8 +183,9 @@ namespace DrClient
                 }
                 return ret;
             }
-            catch (ObjectDisposedException e)
+            catch (ObjectDisposedException)
             {
+                InnerSource = "Socket被异常关闭。";
                 return -5;
             }
         }

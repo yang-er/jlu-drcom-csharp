@@ -134,9 +134,11 @@
             // 
             // notifyIcon1
             // 
+            this.notifyIcon1.BalloonTipText = "已登陆。";
+            this.notifyIcon1.BalloonTipTitle = "吉林大学校园网客户端";
             this.notifyIcon1.Text = "JLU Drcom Client";
             this.notifyIcon1.Visible = true;
-            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon1_MouseDoubleClick);
             // 
             // listBox1
             // 

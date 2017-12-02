@@ -29,7 +29,7 @@ namespace DrClient
 
     }
 
-    public class DrException : Exception { }
+    public class DrException : Exception {}
 
     public delegate void Logger(string app, object args, bool toHex);
 
@@ -351,7 +351,6 @@ namespace DrClient
             data[i++] = 0xa2;
             i += 28;
             len = i;
-            
 
 #if DEBUG
             OnMakeLog.Invoke("mkpkt", data, true);

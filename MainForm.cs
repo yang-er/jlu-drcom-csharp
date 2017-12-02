@@ -45,7 +45,7 @@ namespace DrClient
 
         void ThreadProcess(object args)
         {
-            this.Invoke(ssd, true);
+            this.Invoke(ssd, true, "");
             try
             {
                 proc = (DrProtocol)args;
@@ -57,15 +57,15 @@ namespace DrClient
                     if (trytimes >= 0 && ret++ > trytimes)
                     {
                         Log("login", "! try over times, login fail!", false);
-                        throw new DrException();
+                        throw new DrException() { Source = "登录失败次数过多。" };
                     }
 
                     int p = proc.Challenge(ret);
-                    if (p == -5) throw new DrException();
+                    if (p == -5) throw new DrException() { Source = proc.InnerSource };
                     if (p < 0) continue;
 
                     p = proc.Login();
-                    if (p == -5) throw new DrException();
+                    if (p == -5) throw new DrException() { Source = proc.InnerSource };
                     if (p < 0) continue;
 
                     this.Invoke(uipd);
@@ -77,28 +77,28 @@ namespace DrClient
                     int p;
                     while ((p = proc.Alive()) != 0)
                     {
-                        if (p == -5) throw new DrException();
+                        if (p == -5) throw new DrException() { Source = proc.InnerSource };
                         if (trytimes >= 0 && ret++ > trytimes)
                         {
                             Log("alive", "alive(): fail;", false);
-                            throw new DrException();
+                            throw new DrException() { Source = "Keep-alive包发送超时多次。" };
                         }
                         Thread.Sleep(1000);
                     }
                     Thread.Sleep(20000);
                 }
             }
-            catch (ThreadAbortException e)
+            catch (ThreadAbortException)
             {
                 Log("logout", "logging out, may need at least 20 seconds... ", false);
-                this.Invoke(ssd, false);
+                this.Invoke(ssd, false, "");
             }
             catch (DrException e)
             {
                 Log("drcom", "Socket closed. Please redail. ", false);
-                this.Invoke(ssd, false);
+                this.Invoke(ssd, false, e.Source);
             }
-            this.Invoke(ssd, false);
+            // this.Invoke(ssd, false, " ");
         }
 
         private void Log(string app, object args, bool toHex)
@@ -129,7 +129,7 @@ namespace DrClient
             {
                 this.Invoke(aid, string.Format("[{0}] {1}", app, ept));
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 Process.GetCurrentProcess().Kill();
             }
@@ -149,13 +149,15 @@ namespace DrClient
             textBox2.Text = proc.Cert.ClientIP;
         }
 
-        private delegate void SetStateDelegate(bool isLogin);
+        private delegate void SetStateDelegate(bool isLogin, string toolTip = "");
 
-        private void SetState(bool isLogin)
+        private void SetState(bool isLogin, string toolTip = "")
         {
             button1.Enabled = !isLogin;
             button2.Enabled = isLogin;
             notifyIcon1.Icon = isLogin ? Properties.Resources.Icon1 : Properties.Resources.Icon2;
+            if (!isLogin)
+                notifyIcon1.ShowBalloonTip(10000, "校园网", "已登出。" + toolTip, toolTip.Length == 0 ? ToolTipIcon.Info : ToolTipIcon.Error);
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -190,7 +192,7 @@ namespace DrClient
             return true;
         }
 
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void NotifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Show();
         }
