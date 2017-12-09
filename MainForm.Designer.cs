@@ -42,6 +42,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -68,10 +69,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(254, 278);
+            this.button1.Location = new System.Drawing.Point(293, 278);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(168, 58);
+            this.button1.Size = new System.Drawing.Size(150, 58);
             this.button1.TabIndex = 5;
             this.button1.Text = "登录";
             this.button1.UseVisualStyleBackColor = true;
@@ -123,10 +124,10 @@
             // button2
             // 
             this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(445, 278);
+            this.button2.Location = new System.Drawing.Point(463, 278);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(168, 58);
+            this.button2.Size = new System.Drawing.Size(150, 58);
             this.button2.TabIndex = 6;
             this.button2.Text = "登出";
             this.button2.UseVisualStyleBackColor = true;
@@ -150,6 +151,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(584, 235);
             this.listBox1.TabIndex = 105;
+            this.listBox1.Visible = false;
             // 
             // textBox2
             // 
@@ -166,9 +168,9 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(29, 288);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(159, 40);
+            this.checkBox1.Size = new System.Drawing.Size(103, 40);
             this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "记录日志";
+            this.checkBox1.Text = "日志";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
@@ -180,6 +182,17 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(483, 41);
             this.comboBox1.TabIndex = 3;
+            this.comboBox1.SelectedValueChanged += new System.EventHandler(this.ComboBox1_SelectedValueChanged);
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(146, 288);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(131, 40);
+            this.checkBox2.TabIndex = 106;
+            this.checkBox2.Text = "记住我";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -187,6 +200,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(642, 361);
+            this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.listBox1);
@@ -205,7 +219,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "JLU Drcom Client";
+            this.Text = "吉林大学 DrCOM 客户端";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -227,6 +241,7 @@
         private System.Windows.Forms.TextBox textBox2;
         private volatile System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }
 

@@ -8,23 +8,37 @@ namespace DrClient
 
     public class MacAddress
     {
-        public NetworkInterface Item { get; set; }
-        public byte[] MAC
-        {
-            get
-            {
-                return Item.GetPhysicalAddress().GetAddressBytes();
-            }
-        }
+
+        public string Name { get; private set; }
+        public PhysicalAddress MAC { get; private set; }
 
         public MacAddress(NetworkInterface i)
         {
-            Item = i;
+            MAC = i.GetPhysicalAddress();
+            Name = i.Name;
+        }
+
+        public MacAddress(string Nick, long Addr)
+        {
+            Name = Nick;
+            byte[] p = new byte[6];
+            p[5] = (byte)(Addr & 0xFF);
+            Addr >>= 8;
+            p[4] = (byte)(Addr & 0xFF);
+            Addr >>= 8;
+            p[3] = (byte)(Addr & 0xFF);
+            Addr >>= 8;
+            p[2] = (byte)(Addr & 0xFF);
+            Addr >>= 8;
+            p[1] = (byte)(Addr & 0xFF);
+            Addr >>= 8;
+            p[0] = (byte)(Addr & 0xFF);
+            MAC = new PhysicalAddress(p);
         }
 
         public override string ToString()
         {
-            return Item.Name + " - " + Item.GetPhysicalAddress().ToString();
+            return Name + " - " + MAC.ToString();
         }
 
     }
