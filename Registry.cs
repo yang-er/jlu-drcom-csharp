@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 
 namespace DrClient
 {
 
-    public partial class MainForm : Form
+    public partial class MainForm
     {
 
         private void LoadMacFromRegistry()
